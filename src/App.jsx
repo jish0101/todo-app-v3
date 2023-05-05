@@ -32,15 +32,15 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route
-            path="/todo-app-v3/"
+            path="/"
             element={
               <PrivateRoute >
                 <Home />
               </PrivateRoute>
             }
           />
-          <Route path="/todo-app-v3/login" element={<Login />} />
-          <Route path="/todo-app-v3/sign-up" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<Signup />} />
         </Routes>
       </BrowserRouter>
     </div>

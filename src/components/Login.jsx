@@ -29,7 +29,7 @@ const Login = () => {
         }))(user);
 
       dispatch(loginUser(pickedUser));
-      navigate("/todo-app-v3/", { replace: true });
+      navigate("/", { replace: true });
     } catch (error) {
       console.log("user sign in failed", error);
     }
@@ -52,7 +52,7 @@ const Login = () => {
   };
 
   if (user) {
-    return <Navigate to="/todo-app-v3/" />;
+    return <Navigate to="/" />;
   }
 
   return (

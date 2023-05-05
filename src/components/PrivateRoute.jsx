@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
   const currentUser = useSelector(currentUserSelector);
 
   if (!currentUser?.accessToken)
-    return <Navigate to="/todo-app-v3/login" />
+    return <Navigate to="/login" />
   return children;
 };
 

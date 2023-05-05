@@ -30,7 +30,7 @@ const Signup = () => {
   };
 
   if (user) {
-    return <Navigate to="/todo-app-v3/" />;
+    return <Navigate to="/" />;
   }
 
   return (

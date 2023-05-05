@@ -20,7 +20,7 @@ const Modal = ({ setIsOpen }) => {
       setIsLoading(true);
       await signOutUser();
       dispatch(logout());
-      navigate("/todo-app-v3/login", { replace: true });
+      navigate("/login", { replace: true });
       setIsLoading(false);
     } catch (err) {
       console.log(err);
