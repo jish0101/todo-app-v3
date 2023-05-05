@@ -1,0 +1,22 @@
+.navbar {
+    margin-inline: auto;
+    padding: 1rem;
+  }
+
+  .nav__header_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1rem;
+  }
+  
+  .nav__header_container_primary-heading {
+    color: var(--clr-theme-dark-100);
+  }
+  
+  .nav__toggle {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0.25rem;
+  }
