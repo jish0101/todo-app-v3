@@ -1,21 +1,25 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { emailRegex } from "../utils/regex";
 import {
-  createUser,
+  createUser, createUserDocumentFromAuth
 } from "../utils/firebase/firebase.utils";
+import { useSelector } from "react-redux";
+import { currentUserSelector } from "../store/user/user.selector";
 
 const Signup = () => {
-  const emailRegex =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const user = useSelector(currentUserSelector);
 
   const handleSubmit = async (values) => {
     console.log(values);
     const { email, password } = values;
     try {
       const { user } = await createUser(email, password);
-      console.log(user);
+      if (user) {
+        createUserDocumentFromAuth(user, {displayName: values.name})
+      }
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");
@@ -25,11 +29,16 @@ const Signup = () => {
     }
   };
 
+  if (user) {
+    return <Navigate to="/todo-app-v3/" />;
+  }
+
   return (
     <div>
       <Formik
-        initialValues={{ email: "", password: "", confirmPassword: "" }}
+        initialValues={{  name: "", email: "", password: "", confirmPassword: "" }}
         validationSchema={Yup.object({
+          name: Yup.string().required("Enter your name.."),
           email: Yup.string()
             .required("Email is required")
             .matches(emailRegex, "Invalid email format"),
@@ -44,6 +53,11 @@ const Signup = () => {
           <Form>
             <main>
               <div>
+                <div>
+                  <label htmlFor="name">Your name</label>
+                  <Field type="text" name="name" id="name" />
+                  <ErrorMessage name="name" />
+                </div>
                 <div>
                   <label htmlFor="email">Your email</label>
                   <Field type="email" name="email" id="email" />

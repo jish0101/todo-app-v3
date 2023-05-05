@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { login, loginWithGoogle } from "../utils/firebase/firebase.utils";
+import { login, loginWithGoogle, createUserDocumentFromAuth } from "../utils/firebase/firebase.utils";
 import { login as loginUser } from "../store/user/user.slice";
 import { currentUserSelector } from "../store/user/user.selector";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,7 @@ const Login = () => {
     const { email, password } = values;
     try {
       const { user } = await login(email, password);
+
       const pickedUser =
         user &&
         (({ accessToken, email, uid, photoUrl, displayName }) => ({
@@ -36,16 +37,17 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     const { user } = await loginWithGoogle();
+
     const pickedUser =
       user &&
-      (({ accessToken, email, uid, photoUrl, displayName }) => ({
+      (({ accessToken, email, uid, photoURL, displayName }) => ({
         accessToken,
         email,
         uid,
-        photoUrl,
+        photoURL,
         displayName,
       }))(user);
-
+    createUserDocumentFromAuth(user, {displayName: user.displayName})
     dispatch(loginUser(pickedUser));
   };
 

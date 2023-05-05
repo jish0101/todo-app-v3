@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import "./modal.css";
 import { RiCloseLine } from "react-icons/ri";
 import { logout } from "../../store/user/user.slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router-dom";
 import { ColorRing } from "react-loader-spinner";
+import { currentUserSelector } from "../../store/user/user.selector";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const Modal = ({ setIsOpen }) => {
+  const user = useSelector(currentUserSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -37,16 +40,20 @@ const Modal = ({ setIsOpen }) => {
               <RiCloseLine style={{ marginBottom: "-3px" }} />
             </button>
             <div className="modalContent">
-              <div>
-                <img src="" alt="profile" />
+              <div className={`${user?.photoURL && "profile-container"}`}>
+                {user?.photoURL ? (
+                  <img src={user?.photoURL} alt="profile-picture" />
+                ) : (
+                  <FaRegUserCircle style={{ marginInline: "auto" }} size={32} />
+                )}
               </div>
               <div>
-                <span>User Name :</span>
-                <span>Jishan</span>
+                <span>Name :</span>
+                <span>{user?.displayName}</span>
               </div>
               <div>
                 <span>Email :</span>
-                <span>This is an email</span>
+                <span>{user?.email}</span>
               </div>
             </div>
             <div className="modalActions">
@@ -58,12 +65,18 @@ const Modal = ({ setIsOpen }) => {
                 >
                   {isLoading ? (
                     <ColorRing
-                    visible={true}
-                    height="25"
-                    width="25"
-                    ariaLabel="blocks-loading"
-                    wrapperClass="blocks-wrapper"
-                    colors={['#ff3e4e', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                      visible={true}
+                      height="25"
+                      width="25"
+                      ariaLabel="blocks-loading"
+                      wrapperClass="blocks-wrapper"
+                      colors={[
+                        "#ff3e4e",
+                        "#f47e60",
+                        "#f8b26a",
+                        "#abbd81",
+                        "#849b87",
+                      ]}
                     />
                   ) : (
                     "Logout"

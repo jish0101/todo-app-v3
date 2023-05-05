@@ -14,6 +14,7 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
+        console.log(user);
         const pickedUser =
         user && (({ accessToken, email, uid, photoUrl, displayName}) => ({ accessToken, email, uid, photoUrl, displayName }))(user);
       
