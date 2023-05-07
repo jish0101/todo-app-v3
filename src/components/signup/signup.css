@@ -1,0 +1,31 @@
+.container {
+  width: min(40rem, 90%);
+  min-height: 100vh;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  /* outline: 2px solid black; */
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin-inline: auto;
+  text-align: start;
+  margin-bottom: 1rem;
+}
+
+.form-container > input {
+  padding: 1rem;
+  border-radius: 0.35rem;
+  outline: none;
+  border: 1px solid var(--clr-todo-text);
+  margin-block: 0.2rem;
+}
+
+.form-container > input:focus-visible {
+  border: 2px solid var(--clr-todo-text);
+}

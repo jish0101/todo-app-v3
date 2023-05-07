@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
-import Login from './components/Login'
-import Signup from "./components/Signup";
+import Login from './components/login/Login'
+import Signup from "./components/signup/Signup";
 import { useDispatch } from "react-redux";
 import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
 import {login, logout} from "./store/user/user.slice"

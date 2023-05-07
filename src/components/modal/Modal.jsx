@@ -82,7 +82,7 @@ const Modal = ({ setIsOpen }) => {
                     "Logout"
                   )}
                 </button>
-                <button className="deleteBtn" onClick={() => setIsOpen(false)}>
+                <button className="red-btn" onClick={() => setIsOpen(false)}>
                   Delete Account
                 </button>
               </div>

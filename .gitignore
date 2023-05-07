@@ -23,3 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 /dist
+/src/utils/firebase/firebase.utils.js
